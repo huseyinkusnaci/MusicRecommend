@@ -1,0 +1,44 @@
+﻿@model UserSelectModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="@(Url.Action("PostUserResponse","Home"))" method="post">
+            <p>User @ViewBag.UserID Voting now</p>
+            @for (int i = 0; i < Model.FirstFiveArtist.Length; i++)
+            {
+                <div class="col-md-12">
+                    <input type="hidden" name="model[@i].ArtistId" value="@Model.FirstFiveArtist[i]" />
+                    <input type="hidden" name="model[@i].UserId" value="@Model.UserId" />
+                    <p>
+                        Do you like Arist @Model.FirstFiveArtist[i] (Y/N)?
+                    </p>
+                    <select name="model[@i].Liked">
+
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </div>
+            }
+
+            <input type="submit" name="btn_Submit" value="Submit" />
+        </form>
+    </div>
+    <div class="col-md-12">
+        <p>You may be interested in:</p>
+        @foreach (var item in Model.SuggestArtistList)
+        {
+            <div class="col-md-12">
+                <span>Artist @item.ArtistId</span>  @*<span>@item.UserCount</span>*@
+            </div>
+
+        }
+    </div>
+
+
+</div>
